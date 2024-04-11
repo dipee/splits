@@ -1,8 +1,10 @@
-package com.example.splits;
+package com.example.splits.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.splits.R;
 
 public class MainActivity extends AppCompatActivity {
 
