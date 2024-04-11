@@ -5,6 +5,8 @@ public class Group {
     private String name;
     private String description;
 
+    public Group() {
+    }
     public Group(int id, String name, String description) {
         this.id = id;
         this.name = name;
