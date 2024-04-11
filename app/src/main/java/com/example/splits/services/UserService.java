@@ -5,6 +5,8 @@ import com.example.splits.daos.UserDaoImpl;
 import com.example.splits.models.User;
 import com.example.splits.utilities.DatabaseHelper;
 
+import java.util.List;
+
 public class UserService {
     private UserDao userDao;
 
@@ -26,5 +28,9 @@ public class UserService {
 
     public Boolean loginUser(String email, String password) {
         return userDao.loginUser(email, password);
+    }
+
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 }

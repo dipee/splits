@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.splits.models.User;
 import com.example.splits.utilities.DatabaseHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDaoImpl implements UserDao {
     private DatabaseHelper databaseHelper;
 
@@ -75,6 +78,25 @@ public class UserDaoImpl implements UserDao {
             return user.getPassword().equals(password);
         }
         return false;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.query("User", new String[]{"id", "name", "email", "password"}, null, null, null, null, null);
+        List<User> users = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                User user = new User();
+                user.setId(cursor.getInt(0));
+                user.setName(cursor.getString(1));
+                user.setEmail(cursor.getString(2));
+                user.setPassword(cursor.getString(3));
+                users.add(user);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return users;
     }
 
 }
