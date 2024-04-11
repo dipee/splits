@@ -91,9 +91,10 @@
         android:id="@+id/homeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
         android:clickable="true"
         android:text="Back To Home"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="672dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/Loginbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
