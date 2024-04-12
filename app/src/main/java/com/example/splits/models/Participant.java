@@ -1,4 +1,5 @@
 package com.example.splits.models;
 
-public class Settlement {
+public class Participant {
+
 }
