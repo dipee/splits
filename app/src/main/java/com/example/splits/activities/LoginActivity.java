@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = activityLoginBinding.passwordField.getText().toString();
         if(view.getId() == activityLoginBinding.loginButton.getId()){
             if(userService.loginUser(email, password)){
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

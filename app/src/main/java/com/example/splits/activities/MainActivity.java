@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
+        if(view.getId()==activityMainBinding.registerPageButton.getId()){
+            Intent intent = new Intent(this,RegisterActivity.class);
+            startActivity(intent);
+        }
 
     }
 }

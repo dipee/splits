@@ -7,4 +7,6 @@
     <string name="login_button">LOGIN</string>
     <string name="back_to_home">Back To Home</string>
     <string name="login_text">LOGIN</string>
+    <string name="navDrawerTextOpen">Open</string>
+    <string name="navDrawerTextClose">Close</string>
 </resources>
