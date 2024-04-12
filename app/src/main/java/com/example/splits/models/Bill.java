@@ -2,20 +2,19 @@ package com.example.splits.models;
 
 import java.util.Date;
 
-public class Entry {
+public class Bill {
     private int id;
+
+    private String title;
     private String description;
-    private int  byUserId;
+    private int  payerUserId;
+
+    private int groupId;
     private int amount;
 
     private Date date;
 
-    public Entry(int id, String description, int byUserId, int amount, Date date) {
-        this.id = id;
-        this.description = description;
-        this.byUserId = byUserId;
-        this.amount = amount;
-        this.date = date;
+    public Bill() {
     }
 
     public int getId() {
@@ -26,6 +25,14 @@ public class Entry {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -34,12 +41,20 @@ public class Entry {
         this.description = description;
     }
 
-    public int getByUserId() {
-        return byUserId;
+    public int getPayerUserId() {
+        return payerUserId;
     }
 
-    public void setByUserId(int byUserId) {
-        this.byUserId = byUserId;
+    public void setPayerUserId(int payerUserId) {
+        this.payerUserId = payerUserId;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
     public int getAmount() {
