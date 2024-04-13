@@ -23,7 +23,7 @@ public class GroupDaoImpl implements GroupDao {
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", group.getName());
 
-        long result = db.insert("Group", null, contentValues);
+        long result = db.insert("Groups", null, contentValues);
 
         if (result == -1) {
             return null;
@@ -36,7 +36,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public Group getGroup(int id) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Cursor cursor = db.query("Group", new String[]{"id", "name"}, "id=?", new String[]{String.valueOf(id)}, null, null, null);
+        Cursor cursor = db.query("Groups", new String[]{"id", "name"}, "id=?", new String[]{String.valueOf(id)}, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             Group group = new Group();
