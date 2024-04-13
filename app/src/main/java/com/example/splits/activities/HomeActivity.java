@@ -27,9 +27,9 @@ public class HomeActivity extends AppCompatActivity {
         activityHomeBinding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = activityHomeBinding.getRoot();
         setContentView(view);
-        myinit();
+        initNavigationDrawer();
     }
-    private void myinit() {
+    private void initNavigationDrawer() {
 
         mToggle = new ActionBarDrawerToggle(this, activityHomeBinding.drawerLayout, activityHomeBinding.materialToolbar, R.string.navDrawerTextOpen, R.string.navDrawerTextClose);
         activityHomeBinding.drawerLayout.addDrawerListener(mToggle);

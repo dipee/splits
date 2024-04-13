@@ -72,12 +72,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Boolean loginUser(String email, String password) {
+    public User loginUser(String email, String password) {
         User user = getUser(email);
-        if (user != null) {
-            return user.getPassword().equals(password);
+        if (user != null && user.getPassword().equals(password)) {
+
+            return user;
         }
-        return false;
+        return null;
     }
 
     @Override

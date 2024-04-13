@@ -1,5 +1,6 @@
 package com.example.splits.daos;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -18,7 +19,11 @@ public class UserGroupDaoImpl implements UserGroupDao{
     @Override
     public void addUserToGroup(int userId, int groupId) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        db.execSQL("INSERT INTO UserGroup (userId, groupId) VALUES (?, ?)", new Object[]{userId, groupId});
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("groupId", groupId);
+        long result = db.insert("UserGroup", null, contentValues);
+
 
 
     }

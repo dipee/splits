@@ -2,6 +2,7 @@ package com.example.splits.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -53,9 +54,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         email = activityLoginBinding.emailField.getText().toString();
         password = activityLoginBinding.passwordField.getText().toString();
         if(view.getId() == activityLoginBinding.loginButton.getId()){
-            if(userService.loginUser(email, password)){
+            User user = userService.loginUser(email, password);
+            if(user != null){
                 Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra("email", user.getEmail());
+                intent.putExtra("name", user.getName());
                 startActivity(intent);
+
                 finish();
             }
             else{
@@ -66,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else if(view.getId() == activityLoginBinding.homeText.getId()){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

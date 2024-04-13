@@ -12,16 +12,17 @@
 
     <ImageView
         android:id="@+id/bgView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/background_split" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_split"
+        android:scaleType="centerCrop"
+        />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="#00FFFFFF"
-        android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
     <LinearLayout

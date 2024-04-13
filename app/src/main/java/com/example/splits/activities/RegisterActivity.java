@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(this, newUser.getName() + " added successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -65,8 +66,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         }
         else if(view.getId() == activityRegisterBinding.bTHbutton.getId()){
-            Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

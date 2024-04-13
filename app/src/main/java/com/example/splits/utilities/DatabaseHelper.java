@@ -16,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_BILL_PARTICIPANTS = "Participant";
     private static final String TABLE_TRANSACTIONS = "Transactions";
 
+    private static final String TABLE_CORE = "LoginInfo";
+
     // Common column names
     private static final String KEY_ID = "id";
 
@@ -56,6 +58,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TRANSACTION_REMARK = "remark";
     private static final String KEY_TRANSACTION_AMOUNT = "amount";
     private static final String KEY_TRANSACTION_DATE = "date";
+
+    //Table Core - column names
+    private static final String KEY_CORE_USER_NAME = "name";
+    private static final String KEY_CORE_USER_EMAIL = "email";
+    private static final String KEY_CORE_IS_LOGGED_IN = "loggedIn";
 
 
     // User table create statement
@@ -113,6 +120,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + ")";
 
 
+    // Core table create statement
+    private static final String CREATE_TABLE_CORE = "CREATE TABLE " + TABLE_CORE + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_CORE_USER_NAME + " TEXT,"
+            + KEY_CORE_USER_EMAIL + " TEXT,"
+            + KEY_CORE_IS_LOGGED_IN + " INTEGER"
+            + ")";
 
 
     public DatabaseHelper(Context context) {
@@ -128,6 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_BILLS);
         db.execSQL(CREATE_TABLE_BILL_PARTICIPANTS);
         db.execSQL(CREATE_TABLE_TRANSACTIONS);
+        db.execSQL(CREATE_TABLE_CORE);
     }
 
     @Override
@@ -139,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BILLS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BILL_PARTICIPANTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CORE);
 
         // create new tables
         onCreate(db);

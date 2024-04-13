@@ -36,6 +36,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public Group getGroup(int id) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
         Cursor cursor = db.query("Groups", new String[]{"id", "name"}, "id=?", new String[]{String.valueOf(id)}, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {

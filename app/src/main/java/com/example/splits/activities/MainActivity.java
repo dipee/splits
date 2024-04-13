@@ -3,22 +3,34 @@ package com.example.splits.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.splits.R;
 import com.example.splits.databinding.ActivityLoginBinding;
 import com.example.splits.databinding.ActivityMainBinding;
+import com.example.splits.models.LoginInfo;
+import com.example.splits.models.User;
+import com.example.splits.services.UserService;
+import com.example.splits.utilities.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ActivityMainBinding activityMainBinding;
+    DatabaseHelper databaseHelper;
+    UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = activityMainBinding.getRoot();
+
         setContentView(view);
+
+        databaseHelper = new DatabaseHelper(this);
+        userService = new UserService(databaseHelper);
+
         activityMainBinding.loginPageButton.setOnClickListener(this);
         activityMainBinding.registerPageButton.setOnClickListener(this);
 
@@ -35,5 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
 
+    }
+
+    public void onLoadCheckLogin(View view){
+        User user = userService.checkIfLoggedIn();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("name", user.getName());
+        intent.putExtra("email", user.getEmail());
+        startActivity(intent);
     }
 }
