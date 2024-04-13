@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_NAME + " TEXT,"
-            + KEY_EMAIL + " TEXT,"
+            + KEY_EMAIL + " TEXT UNIQUE,"
             + KEY_PASSWORD + " TEXT"
             + ")";
 

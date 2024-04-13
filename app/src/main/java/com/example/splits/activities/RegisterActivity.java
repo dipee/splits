@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
 
 
-        if(view.getId() == activityRegisterBinding.bTHbutton.getId()){
+        if(view.getId() == activityRegisterBinding.registerButton.getId()){
             String name = activityRegisterBinding.nameField.getText().toString();
             String email = activityRegisterBinding.emailField.getText().toString();
             String password = activityRegisterBinding.passwordField.getText().toString();
@@ -54,16 +54,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 }else{
                     Toast.makeText(this, newUser.getName() + " added successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+
             }
             else {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             }
 
         }
-        else if(view.getId() == activityRegisterBinding.registerButton.getId()){
+        else if(view.getId() == activityRegisterBinding.bTHbutton.getId()){
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         }
