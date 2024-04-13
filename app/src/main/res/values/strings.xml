@@ -9,4 +9,5 @@
     <string name="login_text">LOGIN</string>
     <string name="navDrawerTextOpen">Open</string>
     <string name="navDrawerTextClose">Close</string>
+    <string name="register_user_title">REGISTER USER</string>
 </resources>
