@@ -56,44 +56,44 @@
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/uNameField"
+            android:id="@+id/nameField"
             android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Name" />
+            android:hint="@string/name_hint" />
 
         <EditText
-            android:id="@+id/rEmailField"
+            android:id="@+id/emailField"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/username_or_email_hint" />
+
+        <EditText
+            android:id="@+id/passwordField"
             android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Name" />
+            android:hint="@string/password_text_hint" />
 
         <EditText
-            android:id="@+id/rPasswordField"
+            android:id="@+id/confirmPasswordField"
             android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Name" />
-
-        <EditText
-            android:id="@+id/ConfirmPasswordField"
-            android:layout_width="383dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:hint="@string/confirm_password_text_hint" />
 
         <Button
             android:id="@+id/registerButton"
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="35dp"
-            android:text="REGISTER" />
+            android:text="@string/register_button" />
 
         <TextView
             android:id="@+id/bTHbutton"
@@ -110,6 +110,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
             android:clickable="true"
-            android:text="Back To Home" />
+            android:text="@string/back_to_home_text"
+            android:focusable="true" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

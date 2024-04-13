@@ -10,4 +10,9 @@
     <string name="navDrawerTextOpen">Open</string>
     <string name="navDrawerTextClose">Close</string>
     <string name="register_user_title">REGISTER USER</string>
+    <string name="name_hint">name</string>
+    <string name="register_button">REGISTER</string>
+    <string name="back_to_home_text">Back To Home</string>
+    <string name="password_text_hint">password</string>
+    <string name="confirm_password_text_hint">confirm password</string>
 </resources>
