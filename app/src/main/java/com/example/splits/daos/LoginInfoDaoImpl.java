@@ -21,34 +21,35 @@ public class LoginInfoDaoImpl implements LoginInfoDao {
         contentValues.put("email", user.getEmail());
         contentValues.put("name", user.getName());
         contentValues.put("loggedIn", 1);
-        db.insert("Core", null, contentValues);
+        db.insert("LoginInfo", null, contentValues);
         return user;
 
 
     }
 
     @Override
-    public void addLogout() {
+    public void addLogout(String email) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("email", "");
-        contentValues.put("name", "");
-        contentValues.put("loggedIn", 0);
-        db.insert("Core", null, contentValues);
+//        delete login info
+        db.delete("LoginInfo", "email=?", new String[]{email});
+        
 
     }
 
     @Override
     public User checkIfLoggedIn() {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Cursor cursor = db.query("Core", new String[]{"email", "name", "loggedIn"}, "loggedIn=?", new String[]{String.valueOf(1)}, null, null, null);
+        Cursor cursor = db.query("LoginInfo", new String[]{"email", "name", "loggedIn"}, "loggedIn=?", new String[]{String.valueOf(1)}, null, null, null);
         User user = new User();
 //        get first row to query
         if (cursor != null && cursor.moveToFirst()) {
             user.setEmail(cursor.getString(0));
             user.setName(cursor.getString(1));
             cursor.close();
+            return user;
         }
-        return user;
+        return null;
+
     }
 }

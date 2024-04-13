@@ -41,8 +41,8 @@ public class UserService {
         return null;
     }
 
-    public boolean logoutUser() {
-        loginInfoDao.addLogout();
+    public boolean logoutUser(String email) {
+        loginInfoDao.addLogout(email);
         return true;
     }
 

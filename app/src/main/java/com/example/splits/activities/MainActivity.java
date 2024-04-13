@@ -22,18 +22,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = activityMainBinding.getRoot();
 
         setContentView(view);
 
+
         databaseHelper = new DatabaseHelper(this);
         userService = new UserService(databaseHelper);
 
         activityMainBinding.loginPageButton.setOnClickListener(this);
         activityMainBinding.registerPageButton.setOnClickListener(this);
-
+        onLoadCheckLogin();
     }
 
     @Override
@@ -49,11 +51,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void onLoadCheckLogin(View view){
+    public void onLoadCheckLogin(){
         User user = userService.checkIfLoggedIn();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("name", user.getName());
-        intent.putExtra("email", user.getEmail());
-        startActivity(intent);
+        if(user != null) {
+            // User is logged in, navigate to HomeActivity
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("name", user.getName());
+            intent.putExtra("email", user.getEmail());
+            startActivity(intent);
+            finish(); // Finish the current activity to prevent going back to MainActivity
+        }
     }
 }

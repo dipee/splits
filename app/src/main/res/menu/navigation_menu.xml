@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_add_emp"
-        android:title="Account" />
+        android:id="@+id/navProfile"
+        android:title="@string/drawer_nav_profile" />
 
     <item
-        android:id="@+id/nav_delete_emp"
-        android:title="Groups" />
+        android:id="@+id/navDeleteEmp"
+        android:title="@string/drawer_nav_groups" />
 
     <item
-        android:id="@+id/nav_list_emp"
-        android:title="Logout" />
+        android:id="@+id/navLogout"
+        android:title="@string/drawer_nav_logout" />
 
 
 
