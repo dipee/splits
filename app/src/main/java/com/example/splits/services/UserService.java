@@ -1,6 +1,7 @@
 package com.example.splits.services;
 
 import com.example.splits.daos.LoginInfoDao;
+import com.example.splits.daos.LoginInfoDaoImpl;
 import com.example.splits.daos.UserDao;
 import com.example.splits.daos.UserDaoImpl;
 import com.example.splits.models.LoginInfo;
@@ -15,6 +16,7 @@ public class UserService {
 
     public UserService(DatabaseHelper databaseHelper) {
         this.userDao = new UserDaoImpl(databaseHelper);
+        this.loginInfoDao = new LoginInfoDaoImpl(databaseHelper);
     }
 
     public User addUser(User user) {
