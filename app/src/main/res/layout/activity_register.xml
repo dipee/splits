@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegisterActivity">
+
+    <ImageView
+        android:id="@+id/bgImage"
+        android:layout_width="428dp"
+        android:layout_height="925dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/background_split" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="413dp"
+        android:layout_height="570dp"
+        android:background="#F5F4F4"
+        app:layout_constraintBottom_toBottomOf="@+id/bgImage"
+        app:layout_constraintTop_toTopOf="@+id/bgImage" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="572dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.41">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="119dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/RgttitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/register_user_title"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/nameField"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/name_hint" />
+
+        <EditText
+            android:id="@+id/emailField"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/username_or_email_hint" />
+
+        <EditText
+            android:id="@+id/passwordField"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/password_text_hint" />
+
+        <EditText
+            android:id="@+id/confirmPasswordField"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/confirm_password_text_hint" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="383dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:text="@string/register_button" />
+
+        <TextView
+            android:id="@+id/bTHbutton"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:text="@string/back_to_home_text"
+            android:focusable="true" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
