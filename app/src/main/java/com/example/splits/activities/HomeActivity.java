@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -30,6 +31,11 @@ public class HomeActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
     UserService userService;
+
+    String userName;
+    String email;
+
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,17 @@ public class HomeActivity extends AppCompatActivity {
         initNavigationDrawer();
         databaseHelper = new DatabaseHelper(this);
         userService = new UserService(databaseHelper);
+        // get email, name from intent
+        email = getIntent().getStringExtra("email");
+        userName = getIntent().getStringExtra("name");
+
+//        set navigation view
+        navigationView = activityHomeBinding.navView;
+       TextView titleText =  navigationView.getHeaderView(0).findViewById(R.id.header_text_view);
+        titleText.setText(String.format("Hi!, %s", userName));
+
+
+
     }
     private void initNavigationDrawer() {
 
@@ -60,8 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                 // Logout item ID
                 int logoutItemId = activityHomeBinding.navView.getMenu().findItem(R.id.navLogout).getItemId();
                 if(itemId == logoutItemId){
-                    // get email from intent
-                    String email = getIntent().getStringExtra("email");
+
                     userService.logoutUser(email);
 //                    go to login scree
                     Intent intent = new Intent(HomeActivity.this, LoginActivity.class);

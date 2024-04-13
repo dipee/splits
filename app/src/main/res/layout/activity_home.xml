@@ -30,17 +30,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textWelcome"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Splits"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24dp" />
-
         <LinearLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
@@ -78,6 +67,7 @@
         android:layout_gravity="start"
         android:id="@+id/navView"
         app:menu="@menu/navigation_menu"
+        app:headerLayout="@layout/drawer_nav_header"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>
