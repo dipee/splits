@@ -1,9 +1,17 @@
 package com.example.splits.models;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class Group {
     private int id;
     private String name;
     private String description;
+
+    private String creatorId;
+
+    private String creationDate;
 
     public Group() {
     }
@@ -35,5 +43,24 @@ public class Group {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        //convert string to date
+        this.creationDate = creationDate;
+
+
     }
 }

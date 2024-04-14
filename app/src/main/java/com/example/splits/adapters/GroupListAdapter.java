@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.splits.R;
 import com.example.splits.models.Group;
+import com.example.splits.models.GroupDetail;
+
 import java.util.List;
 
 public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.GroupViewHolder> {
@@ -41,15 +43,19 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
         TextView nameTextView;
         TextView descriptionTextView;
 
+        TextView paidAmountTextView;
+        TextView owedAmountTextView;
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+
         }
 
         public void bind(Group group) {
             nameTextView.setText(group.getName());
             descriptionTextView.setText(group.getDescription());
+
         }
     }
 }

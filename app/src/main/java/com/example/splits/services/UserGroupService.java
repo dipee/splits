@@ -11,7 +11,7 @@ public class UserGroupService {
     UserGroupDao userGroupDao;
 
     public UserGroupService(DatabaseHelper databaseHelper) {
-        UserGroupDao userGroupDao = new UserGroupDaoImpl(databaseHelper);
+         userGroupDao = new UserGroupDaoImpl(databaseHelper);
     }
 
     public void addUserToGroup(int userId, int groupId) {

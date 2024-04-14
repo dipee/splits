@@ -24,6 +24,8 @@ public class GroupDaoImpl implements GroupDao {
         ContentValues values = new ContentValues();
         values.put("name", group.getName());
         values.put("description", group.getDescription());
+        values.put("creatorId", group.getCreatorId());
+        values.put("creationDate", group.getCreationDate());
 
         long id = db.insert("Groups", null, values);
         group.setId((int) id);
@@ -35,13 +37,15 @@ public class GroupDaoImpl implements GroupDao {
     public Group getGroup(int id) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        Cursor cursor = db.query("Groups", new String[]{"id", "name", "description"}, "id=?", new String[]{String.valueOf(id)}, null, null, null);
+        Cursor cursor = db.query("Groups", new String[]{"id", "name", "description", "creatorId", "creationDate"}, "id=?", new String[]{String.valueOf(id)}, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             Group group = new Group();
             group.setId(cursor.getInt(0));
             group.setName(cursor.getString(1));
             group.setDescription(cursor.getString(2));
+            group.setCreatorId(cursor.getString(3));
+            group.setCreationDate(cursor.getString(4));
             cursor.close();
             return group;
         }
@@ -54,7 +58,7 @@ public class GroupDaoImpl implements GroupDao {
         List<Group> groups = new ArrayList<>();
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        Cursor cursor = db.query("Groups", new String[]{"id", "name", "description"}, null, null, null, null, null);
+        Cursor cursor = db.query("Groups", new String[]{"id", "name", "description", "creationDate", "creatorId"}, null, null, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
