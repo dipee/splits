@@ -14,11 +14,11 @@ import java.util.List;
 
 public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.GroupViewHolder> {
 
-    private List<Group> groups;
+    private List<GroupDetail> groups;
 
     private OnGroupClickListener onGroupClickListener;
 
-    public GroupListAdapter(List<Group> groups, OnGroupClickListener onGroupClickListener) {
+    public GroupListAdapter(List<GroupDetail> groups, OnGroupClickListener onGroupClickListener) {
         this.groups = groups;
         this.onGroupClickListener = onGroupClickListener;
     }
@@ -32,7 +32,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        Group group = groups.get(position);
+        GroupDetail group = groups.get(position);
         holder.bind(group);
     }
 
@@ -41,13 +41,13 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
         return groups.size();
     }
     public interface OnGroupClickListener {
-        void onGroupClick(Group group);
+        void onGroupClick(GroupDetail group);
     }
 
      class GroupViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameTextView;
-        TextView descriptionTextView;
+        TextView userCountTextView;
 
         TextView paidAmountTextView;
         TextView owedAmountTextView;
@@ -58,7 +58,9 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
-            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            userCountTextView = itemView.findViewById(R.id.userCountTextView);
+            paidAmountTextView = itemView.findViewById(R.id.paidAmountTextView);
+            owedAmountTextView = itemView.findViewById(R.id.owedAmountTextView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,9 +75,11 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
 
         }
 
-        public void bind(Group group) {
-            nameTextView.setText(group.getName());
-            descriptionTextView.setText(group.getDescription());
+        public void bind(GroupDetail group) {
+            nameTextView.setText(group.getGroupName());
+            userCountTextView.setText(group.getUserCount() + " members");
+            paidAmountTextView.setText("Total Paid: " + group.getTotalPaid());
+            owedAmountTextView.setText("Total Owed: " + group.getTotalOwed());
 
         }
 

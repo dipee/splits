@@ -9,12 +9,12 @@ import java.util.List;
 
 public class GroupDetailDaoImpl implements GroupDetailDao{
     DatabaseHelper databaseHelper;
-    GroupDetailDaoImpl(DatabaseHelper databaseHelper){
+    public GroupDetailDaoImpl(DatabaseHelper databaseHelper){
         this.databaseHelper = databaseHelper;
     }
     @Override
-    public List<GroupDetail> getGroupDetails(DatabaseHelper databaseHelper) {
+    public List<GroupDetail> getGroupDetails() {
         DbQueries dbQueries = new DbQueries(databaseHelper);
-       return getGroupDetails(databaseHelper);
+       return dbQueries.getGroupDetails();
     }
 }

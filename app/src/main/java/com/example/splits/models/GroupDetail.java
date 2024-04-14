@@ -1,6 +1,6 @@
 package com.example.splits.models;
 
-public class GroupDetail {
+public class GroupDetail implements java.io.Serializable{
     private int groupId;
     private String groupName;
     private int userCount;

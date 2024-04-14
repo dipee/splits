@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface GroupDetailDao {
 
-    List<GroupDetail> getGroupDetails(DatabaseHelper databaseHelper);
+    List<GroupDetail> getGroupDetails();
 }

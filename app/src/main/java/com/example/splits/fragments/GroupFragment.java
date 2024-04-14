@@ -17,6 +17,7 @@ import com.example.splits.R;
 import com.example.splits.adapters.GroupListAdapter;
 import com.example.splits.databinding.FragmentGroupBinding;
 import com.example.splits.models.Group;
+import com.example.splits.models.GroupDetail;
 import com.example.splits.services.GroupService;
 import com.example.splits.utilities.DatabaseHelper;
 
@@ -49,10 +50,10 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
 
         // Setup RecyclerView
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupListAdapter(groupService.getAllGroups(), new GroupListAdapter.OnGroupClickListener() {
+        adapter = new GroupListAdapter(groupService.getGroupDetails(), new GroupListAdapter.OnGroupClickListener() {
             @Override
-            public void onGroupClick(Group group) {
-                Log.d("GroupFragment", "Group clicked: " + group.getName());
+            public void onGroupClick(GroupDetail group) {
+                Log.d("GroupFragment", "Group clicked: " + group.getGroupName());
                 // Navigate to GroupDetailFragment
                 // You can pass the clicked group data to the fragment using bundle
                 GroupDetailFragment fragment = new GroupDetailFragment();
