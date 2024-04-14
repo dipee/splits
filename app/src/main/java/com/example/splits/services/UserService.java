@@ -4,7 +4,6 @@ import com.example.splits.daos.LoginInfoDao;
 import com.example.splits.daos.LoginInfoDaoImpl;
 import com.example.splits.daos.UserDao;
 import com.example.splits.daos.UserDaoImpl;
-import com.example.splits.models.LoginInfo;
 import com.example.splits.models.User;
 import com.example.splits.utilities.DatabaseHelper;
 

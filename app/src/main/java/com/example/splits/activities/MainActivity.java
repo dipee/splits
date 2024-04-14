@@ -1,16 +1,12 @@
 package com.example.splits.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.splits.R;
-import com.example.splits.databinding.ActivityLoginBinding;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.splits.databinding.ActivityMainBinding;
-import com.example.splits.models.LoginInfo;
 import com.example.splits.models.User;
 import com.example.splits.services.UserService;
 import com.example.splits.utilities.DatabaseHelper;

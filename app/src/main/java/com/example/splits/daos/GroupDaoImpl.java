@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.splits.models.Group;
-import com.example.splits.models.User;
 import com.example.splits.utilities.DatabaseHelper;
 
 import java.util.ArrayList;

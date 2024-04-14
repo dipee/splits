@@ -1,24 +1,23 @@
 package com.example.splits.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.splits.R;
+import com.example.splits.databinding.ActivityHomeBinding;
 import com.example.splits.fragments.GroupFragment;
 import com.example.splits.fragments.ProfileFragment;
 import com.example.splits.services.UserService;
 import com.example.splits.utilities.DatabaseHelper;
-
-import com.example.splits.R;
-import com.example.splits.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends AppCompatActivity {
 

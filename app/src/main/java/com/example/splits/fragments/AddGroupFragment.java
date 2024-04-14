@@ -1,6 +1,5 @@
 package com.example.splits.fragments;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
