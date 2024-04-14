@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/editTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:inputType="text"
+
+        android:textColorHint="#9e9e9e"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editDescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="text"
+
+        android:textColorHint="#9e9e9e"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editAmountText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount"
+        android:inputType="number"
+
+        android:textColorHint="#9e9e9e"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+     />
+
+</LinearLayout>

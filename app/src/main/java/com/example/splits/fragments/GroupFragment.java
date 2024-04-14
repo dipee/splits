@@ -49,7 +49,19 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
 
         // Setup RecyclerView
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupListAdapter(groupService.getAllGroups());
+        adapter = new GroupListAdapter(groupService.getAllGroups(), new GroupListAdapter.OnGroupClickListener() {
+            @Override
+            public void onGroupClick(Group group) {
+                Log.d("GroupFragment", "Group clicked: " + group.getName());
+                // Navigate to GroupDetailFragment
+                // You can pass the clicked group data to the fragment using bundle
+                GroupDetailFragment fragment = new GroupDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("group", group);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+            }
+        });
         binding.recyclerView.setAdapter(adapter);
 
 

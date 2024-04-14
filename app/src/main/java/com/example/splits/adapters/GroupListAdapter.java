@@ -16,8 +16,11 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
 
     private List<Group> groups;
 
-    public GroupListAdapter(List<Group> groups) {
+    private OnGroupClickListener onGroupClickListener;
+
+    public GroupListAdapter(List<Group> groups, OnGroupClickListener onGroupClickListener) {
         this.groups = groups;
+        this.onGroupClickListener = onGroupClickListener;
     }
 
     @NonNull
@@ -37,18 +40,36 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
     public int getItemCount() {
         return groups.size();
     }
+    public interface OnGroupClickListener {
+        void onGroupClick(Group group);
+    }
 
-    static class GroupViewHolder extends RecyclerView.ViewHolder {
+     class GroupViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameTextView;
         TextView descriptionTextView;
 
         TextView paidAmountTextView;
         TextView owedAmountTextView;
+
+
+
+
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onGroupClickListener != null) {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            onGroupClickListener.onGroupClick(groups.get(position));
+                        }
+                    }
+                }
+            });
 
         }
 
@@ -57,5 +78,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
             descriptionTextView.setText(group.getDescription());
 
         }
+
+
     }
 }

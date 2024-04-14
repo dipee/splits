@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Group {
+public class Group implements java.io.Serializable {
     private int id;
     private String name;
     private String description;
