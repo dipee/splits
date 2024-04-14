@@ -6,6 +6,8 @@ public class LoginInfo {
     private String email;
     private String loggedIn;
 
+    private int userId;
+
     public int getId() {
         return id;
     }
@@ -36,5 +38,13 @@ public class LoginInfo {
 
     public void setLoggedIn(String loggedIn) {
         this.loggedIn = loggedIn;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

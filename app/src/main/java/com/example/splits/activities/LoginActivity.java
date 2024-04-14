@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(this, HomeActivity.class);
                 intent.putExtra("email", user.getEmail());
                 intent.putExtra("name", user.getName());
+                intent.putExtra("userId", user.getId());
                 startActivity(intent);
 
                 finish();

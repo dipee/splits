@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
     private String userName;
     private String email;
 
+    private int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         // get email, name from intent
         email = getIntent().getStringExtra("email");
         userName = getIntent().getStringExtra("name");
+        userId = getIntent().getIntExtra("userId", 0);
 
         TextView titleText = binding.navView.getHeaderView(0).findViewById(R.id.header_text_view);
         titleText.setText(String.format("Hi!, %s", userName));
@@ -93,5 +96,12 @@ public class HomeActivity extends AppCompatActivity {
                 .replace(binding.fragmentContainer.getId(), fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public int getUserId() {
+        return userId;
     }
 }

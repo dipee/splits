@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      static final String KEY_CORE_USER_NAME = "name";
      static final String KEY_CORE_USER_EMAIL = "email";
      static final String KEY_CORE_IS_LOGGED_IN = "loggedIn";
+     static final  String KEY_CORE_USER_ID = "userId";
 
 
     // User table create statement
@@ -125,7 +126,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_CORE_USER_NAME + " TEXT,"
             + KEY_CORE_USER_EMAIL + " TEXT,"
-            + KEY_CORE_IS_LOGGED_IN + " INTEGER"
+            + KEY_CORE_IS_LOGGED_IN + " INTEGER,"
+            + KEY_CORE_USER_ID + " INTEGER"
             + ")";
 
 

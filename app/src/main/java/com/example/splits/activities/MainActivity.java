@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("name", user.getName());
             intent.putExtra("email", user.getEmail());
+            intent.putExtra("userId", user.getId());
             startActivity(intent);
             finish(); // Finish the current activity to prevent going back to MainActivity
         }
