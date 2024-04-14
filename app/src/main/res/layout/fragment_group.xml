@@ -6,36 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".fragments.GroupFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="435dp"
-        android:layout_height="878dp"
-        android:src="@drawable/background_split" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:contentDescription="Add"
+        app:srcCompat="@android:drawable/ic_input_add"
+     />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/groupFragmentTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Groups"
-            android:textSize="34sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/groupListRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="823dp">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <Button
-            android:id="@+id/addGroupButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="+" />
-    </LinearLayout>
 </FrameLayout>

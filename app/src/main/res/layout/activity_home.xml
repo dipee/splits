@@ -7,68 +7,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/drawerLayout"
-    tools:context=".activities.HomeActivity">
+    tools:context=".activities.HomeActivity"
+    android:background="@drawable/background_split">
 
-
-    <ImageView
-        android:id="@+id/bgView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background_split"
-        android:scaleType="centerCrop"
-        />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#00FFFFFF"
-        android:theme="?attr/actionBarTheme" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+               />
 
-        <LinearLayout
-            android:id="@+id/frame"
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Groups"
-                android:textSize="24dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="751dp">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <Button
-                android:id="@+id/groupButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Button" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-
+            android:layout_marginTop="?attr/actionBarSize" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:id="@+id/navView"
         app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/drawer_nav_header"
-        />
+      />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

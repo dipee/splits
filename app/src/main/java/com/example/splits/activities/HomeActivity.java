@@ -2,103 +2,97 @@ package com.example.splits.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
+import com.example.splits.fragments.GroupFragment;
+import com.example.splits.fragments.ProfileFragment;
 import com.example.splits.services.UserService;
 import com.example.splits.utilities.DatabaseHelper;
-import com.google.android.material.navigation.NavigationView;
 
 import com.example.splits.R;
 import com.example.splits.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ActivityHomeBinding activityHomeBinding ;
-    ActionBarDrawerToggle mToggle = null;
+    private ActivityHomeBinding binding;
+    private ActionBarDrawerToggle mToggle;
+    private DatabaseHelper databaseHelper;
+    private UserService userService;
+    private String userName;
+    private String email;
 
-    DatabaseHelper databaseHelper;
-    UserService userService;
-
-    String userName;
-    String email;
-
-    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityHomeBinding = ActivityHomeBinding.inflate(getLayoutInflater());
-        View view = activityHomeBinding.getRoot();
-        setContentView(view);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         initNavigationDrawer();
+
         databaseHelper = new DatabaseHelper(this);
         userService = new UserService(databaseHelper);
+
         // get email, name from intent
         email = getIntent().getStringExtra("email");
         userName = getIntent().getStringExtra("name");
 
-//        set navigation view
-        navigationView = activityHomeBinding.navView;
-       TextView titleText =  navigationView.getHeaderView(0).findViewById(R.id.header_text_view);
+        TextView titleText = binding.navView.getHeaderView(0).findViewById(R.id.header_text_view);
         titleText.setText(String.format("Hi!, %s", userName));
 
-
-
+        loadFragment(new GroupFragment());
     }
-    private void initNavigationDrawer() {
 
-        mToggle = new ActionBarDrawerToggle(this, activityHomeBinding.drawerLayout, activityHomeBinding.materialToolbar, R.string.navDrawerTextOpen, R.string.navDrawerTextClose);
-        activityHomeBinding.drawerLayout.addDrawerListener(mToggle);
+    private void initNavigationDrawer() {
+        mToggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.navDrawerTextOpen, R.string.navDrawerTextClose);
+        binding.drawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        setSupportActionBar(activityHomeBinding.materialToolbar);
+        setSupportActionBar(binding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setNavigationDrawer();
+
+        binding.navView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
     }
-    private void setNavigationDrawer() {
-        activityHomeBinding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // selected item ID
-                int itemId = item.getItemId();
 
-                // Logout item ID
-                int logoutItemId = activityHomeBinding.navView.getMenu().findItem(R.id.navLogout).getItemId();
-                if(itemId == logoutItemId){
+    private boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
 
-                    userService.logoutUser(email);
-//                    go to login scree
-                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
+        if (itemId == R.id.navLogout) {
+            userService.logoutUser(email);
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            Toast.makeText(HomeActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (itemId == R.id.navGroups) {
+            loadFragment(new GroupFragment());
+            binding.drawerLayout.closeDrawers();
+            return true;
+        } else if (itemId == R.id.navProfile) {
+            loadFragment(new ProfileFragment());
+            binding.drawerLayout.closeDrawers();
+            return true;
+        }
+        binding.drawerLayout.closeDrawers();
 
-
-
-                return false;
-            }
-        });
+        return false;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
 
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(binding.fragmentContainer.getId(), fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 }
