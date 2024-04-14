@@ -20,4 +20,5 @@
     <string name="drawer_nav_profile">Profile</string>
     <string name="drawer_nav_groups">Groups</string>
     <string name="drawer_nav_logout">Logout</string>
+    <string name="description_hint">description</string>
 </resources>

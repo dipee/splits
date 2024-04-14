@@ -9,4 +9,5 @@ public interface GroupDao {
     Group addGroup(Group group);
     Group getGroup(int id);
 
+    List<Group> getAllGroups();
 }

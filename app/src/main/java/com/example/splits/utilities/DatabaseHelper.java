@@ -5,64 +5,64 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "splits.db";
-    private static final int DATABASE_VERSION = 1;
+     static final String DATABASE_NAME = "splits.db";
+     static final int DATABASE_VERSION = 1;
 
     // Table Names
-    private static final String TABLE_USERS = "User";
-    private static final String TABLE_GROUPS = "Groups";
-    private static final String TABLE_GROUP_MEMBERS = "UserGroup";
-    private static final String TABLE_BILLS = "Bill";
-    private static final String TABLE_BILL_PARTICIPANTS = "Participant";
-    private static final String TABLE_TRANSACTIONS = "Transactions";
+     static final String TABLE_USERS = "User";
+     static final String TABLE_GROUPS = "Groups";
+     static final String TABLE_GROUP_MEMBERS = "UserGroup";
+     static final String TABLE_BILLS = "Bill";
+     static final String TABLE_BILL_PARTICIPANTS = "Participant";
+     static final String TABLE_TRANSACTIONS = "Transactions";
 
-    private static final String TABLE_CORE = "LoginInfo";
+     static final String TABLE_CORE = "LoginInfo";
 
     // Common column names
-    private static final String KEY_ID = "id";
+     static final String KEY_ID = "id";
 
     // Users Table - column names
-    private static final String KEY_NAME = "name";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
+     static final String KEY_NAME = "name";
+     static final String KEY_EMAIL = "email";
+     static final String KEY_PASSWORD = "password";
 
 
     // Groups Table - column names
-    private static final String KEY_GROUP_NAME = "name";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_CREATOR_ID = "creatorId";
-    private static final String KEY_CREATION_DATE = "creationDate";
+     static final String KEY_GROUP_NAME = "name";
+     static final String KEY_DESCRIPTION = "description";
+     static final String KEY_CREATOR_ID = "creatorId";
+     static final String KEY_CREATION_DATE = "creationDate";
 
     // User Group Table - column names
-    private static final String KEY_GROUP_ID = "groupId";
-    private static final String KEY_USER_ID = "userId";
+     static final String KEY_GROUP_ID = "groupId";
+     static final String KEY_USER_ID = "userId";
 
 
     // Bill Table - column names
-    private static final String KEY_BILL_TITLE = "title";
-    private static final String KEY_BILL_DESCRIPTION = "description";
-    private static final String KEY_BILL_PAYER_ID = "payerUserId";
-    private static final String KEY_BILL_GROUP_ID = "groupId";
-    private static final String KEY_BILL_AMOUNT = "amount";
-    private static final String KEY_BILL_DATE = "date";
+     static final String KEY_BILL_TITLE = "title";
+     static final String KEY_BILL_DESCRIPTION = "description";
+     static final String KEY_BILL_PAYER_ID = "payerUserId";
+     static final String KEY_BILL_GROUP_ID = "groupId";
+     static final String KEY_BILL_AMOUNT = "amount";
+     static final String KEY_BILL_DATE = "date";
 
     // Bill Participants Table - column names
-    private static final String KEY_PARTICIPANT_BILL_ID = "billId";
-    private static final String KEY_PARTICIPANT_PORTION_PAID = "portionPaid";
-    private static final String KEY_PARTICIPANT_PORTION_OWED = "portionOwed";
+     static final String KEY_PARTICIPANT_BILL_ID = "billId";
+     static final String KEY_PARTICIPANT_PORTION_PAID = "portionPaid";
+     static final String KEY_PARTICIPANT_PORTION_OWED = "portionOwed";
 
     // Transactions Table - column names
-    private static final String KEY_TRANSACTION_PAYER_ID= "payerId";
-    private static final String KEY_TRANSACTION_PAYEE_ID = "payeeId";
+     static final String KEY_TRANSACTION_PAYER_ID= "payerId";
+     static final String KEY_TRANSACTION_PAYEE_ID = "payeeId";
 
-    private static final String KEY_TRANSACTION_REMARK = "remark";
-    private static final String KEY_TRANSACTION_AMOUNT = "amount";
-    private static final String KEY_TRANSACTION_DATE = "date";
+     static final String KEY_TRANSACTION_REMARK = "remark";
+     static final String KEY_TRANSACTION_AMOUNT = "amount";
+     static final String KEY_TRANSACTION_DATE = "date";
 
     //Table Core - column names
-    private static final String KEY_CORE_USER_NAME = "name";
-    private static final String KEY_CORE_USER_EMAIL = "email";
-    private static final String KEY_CORE_IS_LOGGED_IN = "loggedIn";
+     static final String KEY_CORE_USER_NAME = "name";
+     static final String KEY_CORE_USER_EMAIL = "email";
+     static final String KEY_CORE_IS_LOGGED_IN = "loggedIn";
 
 
     // User table create statement

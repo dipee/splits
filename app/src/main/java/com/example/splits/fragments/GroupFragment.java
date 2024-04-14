@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +14,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.splits.R;
+import com.example.splits.adapters.GroupListAdapter;
 import com.example.splits.databinding.FragmentGroupBinding;
+import com.example.splits.models.Group;
+import com.example.splits.services.GroupService;
+import com.example.splits.utilities.DatabaseHelper;
+
+import java.util.List;
 
 
 public class GroupFragment extends Fragment implements View.OnClickListener {
 
     private FragmentGroupBinding binding;
+    private GroupListAdapter adapter;
+
+    DatabaseHelper databaseHelper;
+    GroupService groupService;
 
 
     @Override
@@ -29,6 +41,17 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
         // Set Floating Action Button click listener
         binding.floatingActionButton.setOnClickListener(this);
 
+        // Set database and service
+        databaseHelper = new DatabaseHelper(getContext());
+        groupService = new GroupService(databaseHelper);
+
+
+
+        // Setup RecyclerView
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new GroupListAdapter(groupService.getAllGroups());
+        binding.recyclerView.setAdapter(adapter);
+
 
         return binding.getRoot();
     }
@@ -36,9 +59,11 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Log.d("Clicked", "onClick: floating action button clicked");
+
         if(v.getId() == binding.floatingActionButton.getId()){
-            Log.d("Clicked", "onClick: floating action button clicked");
+//            got to add group fragment
+            AddGroupFragment addGroupFragment = new AddGroupFragment();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, addGroupFragment).addToBackStack(null).commit();
         }
 
     }
