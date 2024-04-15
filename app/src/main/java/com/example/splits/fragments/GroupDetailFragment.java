@@ -61,7 +61,7 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
         binding.textViewDescription.setText(group.getDescription());
         binding.textViewUserCount.setText("Users: " + groupDetail.getUserCount());
         binding.textViewOwed.setText("Owed: " + String.format("%.2f",groupDetail.getTotalOwed()));
-        binding.textViewPaid.setText("Spent: " + String.format("%.2f",groupDetail.getTotalPaid()));
+        binding.textViewPaid.setText("Spent: " + String.format("%.2f",groupDetail.getTotalPaid() + groupDetail.getUserTransactionAmount()));
 
 
 //        setting adapter
