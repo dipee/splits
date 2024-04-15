@@ -2,12 +2,9 @@ package com.example.splits.services;
 
 import com.example.splits.daos.TransactionDao;
 import com.example.splits.daos.TransactionDaoImpl;
-import com.example.splits.models.SettlementUser;
 import com.example.splits.models.Transaction;
 import com.example.splits.utilities.DatabaseHelper;
 import com.example.splits.utilities.DbQueries;
-
-import java.util.List;
 
 public class SettlementService {
 

@@ -7,6 +7,8 @@ public class GroupDetail implements java.io.Serializable{
     private double totalOwed;
     private double totalPaid;
 
+    private double userTransactionAmount;
+
     // Getters and setters
     public int getGroupId() {
         return groupId;
@@ -46,5 +48,13 @@ public class GroupDetail implements java.io.Serializable{
 
     public void setTotalPaid(double totalPaid) {
         this.totalPaid = totalPaid;
+    }
+
+    public double getUserTransactionAmount() {
+        return userTransactionAmount;
+    }
+
+    public void setUserTransactionAmount(double userTransactionAmount) {
+        this.userTransactionAmount = userTransactionAmount;
     }
 }

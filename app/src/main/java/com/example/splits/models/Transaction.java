@@ -1,21 +1,21 @@
 package com.example.splits.models;
 
-import java.util.Date;
-
 public class Transaction {
-    private long id;
+    private int id;
     private long payerId;
     private long payeeId;
     private String remark;
     private double amount;
     private String date;
 
+    private int groupId;
+
     // Getters and setters
     // ID
     public long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
     // Payer ID
@@ -52,5 +52,13 @@ public class Transaction {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 }

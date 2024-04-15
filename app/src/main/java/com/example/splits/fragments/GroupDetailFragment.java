@@ -104,9 +104,11 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
             // Navigate to SettlementListFragment
             AddSettlementFragment fragment = new AddSettlementFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("groupId", group.getId());
+            bundle.putInt("groupId", groupDetail.getGroupId());
             bundle.putDouble("totalOwed", groupDetail.getTotalOwed());
             bundle.putDouble("totalPaid", groupDetail.getTotalPaid());
+            bundle.putString("groupName", group.getName());
+
             fragment.setArguments(bundle);
 
             getActivity().getSupportFragmentManager().beginTransaction()
