@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.splits.activities.HomeActivity;
 import com.example.splits.databinding.FragmentAddSettlementBinding;
+import com.example.splits.models.GroupDetail;
 import com.example.splits.models.Transaction;
 import com.example.splits.services.SettlementService;
 import com.example.splits.utilities.DatabaseHelper;
@@ -25,6 +26,8 @@ public class AddSettlementFragment extends Fragment implements View.OnClickListe
     DatabaseHelper databaseHelper;
     int groupId;
     int userId;
+
+    GroupDetail group;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +69,13 @@ public class AddSettlementFragment extends Fragment implements View.OnClickListe
             transaction.setRemark(remark);
             //save settlement to database
             settlementService.addSettlement(transaction);
+            //navigate to group detail fragment
+            GroupFragment fragment = new GroupFragment();
+
+            getActivity().getSupportFragmentManager().beginTransaction().replace(com.example.splits.R.id.fragment_container, fragment).addToBackStack(null).commit();
+
+
+
 
         }
     }

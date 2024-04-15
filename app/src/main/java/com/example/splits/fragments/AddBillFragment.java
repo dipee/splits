@@ -82,6 +82,12 @@ public class AddBillFragment extends Fragment implements View.OnClickListener {
             billService.addBill(bill);
 
             addParticipants(bill, userId, groupId);
+
+            // Navigate to group detail fragment
+            GroupFragment fragment = new GroupFragment();
+
+
+            getActivity().getSupportFragmentManager().beginTransaction().replace(com.example.splits.R.id.fragment_container, fragment).addToBackStack(null).commit();
         }
     }
 

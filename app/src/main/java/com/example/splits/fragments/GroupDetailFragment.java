@@ -116,6 +116,7 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
                 bundle.putDouble("totalOwed", groupDetail.getTotalOwed());
                 bundle.putDouble("totalPaid", groupDetail.getTotalPaid());
                 bundle.putString("groupName", group.getName());
+                bundle.putSerializable("group", group);
 
                 fragment.setArguments(bundle);
 

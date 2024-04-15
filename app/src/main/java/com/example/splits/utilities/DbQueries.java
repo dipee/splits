@@ -38,17 +38,57 @@ public class DbQueries {
 //                "GROUP BY g.id";
 
         // Query to retrieve total amount owed, total amount paid, and total transactions made by a user in all groups
+//        String query = "SELECT " +
+//                "g.id AS groupId, " +
+//                "g.name AS groupName, " +
+//                "COUNT(DISTINCT bp." + DatabaseHelper.KEY_USER_ID + ") AS userCount, " +
+//                "COALESCE(SUM(CASE WHEN bp." + DatabaseHelper.KEY_USER_ID + " = ? THEN bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_OWED + " ELSE 0 END), 0) AS totalOwed, " +
+//                "COALESCE(SUM(CASE WHEN bp." + DatabaseHelper.KEY_USER_ID + " = ? THEN bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_PAID + " ELSE 0 END), 0) AS totalPaid, " +
+//                "COALESCE(SUM(CASE WHEN t." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? AND t." + DatabaseHelper.KEY_GROUP_ID + " = g.id THEN t." + DatabaseHelper.KEY_TRANSACTION_AMOUNT + " ELSE 0 END), 0) AS userTransactionAmount " +
+//                "FROM " + DatabaseHelper.TABLE_GROUPS + " g " +
+//                "LEFT JOIN " + DatabaseHelper.TABLE_BILLS + " b ON g.id = b." + DatabaseHelper.KEY_BILL_GROUP_ID + " " +
+//                "LEFT JOIN " + DatabaseHelper.TABLE_BILL_PARTICIPANTS + " bp ON b.id = bp." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " " +
+//                "LEFT JOIN " + DatabaseHelper.TABLE_TRANSACTIONS + " t ON g.id = t." + DatabaseHelper.KEY_GROUP_ID + " " +
+//                "GROUP BY g.id";
+
+        // Subquery to calculate userTransactionAmount for each group and user
+        String subquery = "(SELECT " +
+                DatabaseHelper.KEY_GROUP_ID + ", " +
+                DatabaseHelper.KEY_TRANSACTION_PAYER_ID + ", " +
+                "SUM(" + DatabaseHelper.KEY_TRANSACTION_AMOUNT + ") AS userTransactionAmount " +
+                "FROM " + DatabaseHelper.TABLE_TRANSACTIONS +
+                " GROUP BY " + DatabaseHelper.KEY_GROUP_ID + ", " + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + ") AS t_sub";
+
+
+        // Subquery to calculate totalOwed for each group and user
+        String subqueryOwed = "(SELECT " +
+                DatabaseHelper.KEY_PARTICIPANT_BILL_ID + ", " +
+                DatabaseHelper.KEY_USER_ID + ", " +
+                "SUM(" + DatabaseHelper.KEY_PARTICIPANT_PORTION_OWED + ") AS totalOwed " +
+                "FROM " + DatabaseHelper.TABLE_BILL_PARTICIPANTS +
+                " GROUP BY " + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + ", " + DatabaseHelper.KEY_USER_ID + ") AS bp_sub";
+
+// Subquery to calculate totalPaid for each group and user
+        String subqueryPaid = "(SELECT " +
+                DatabaseHelper.KEY_PARTICIPANT_BILL_ID + ", " +
+                DatabaseHelper.KEY_USER_ID + ", " +
+                "SUM(" + DatabaseHelper.KEY_PARTICIPANT_PORTION_PAID + ") AS totalPaid " +
+                "FROM " + DatabaseHelper.TABLE_BILL_PARTICIPANTS +
+                " GROUP BY " + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + ", " + DatabaseHelper.KEY_USER_ID + ") AS bp_sub_paid";
+
+// Main query
         String query = "SELECT " +
                 "g.id AS groupId, " +
                 "g.name AS groupName, " +
-                "COUNT(DISTINCT bp." + DatabaseHelper.KEY_USER_ID + ") AS userCount, " +
-                "COALESCE(SUM(CASE WHEN bp." + DatabaseHelper.KEY_USER_ID + " = ? THEN bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_OWED + " ELSE 0 END), 0) AS totalOwed, " +
-                "COALESCE(SUM(CASE WHEN bp." + DatabaseHelper.KEY_USER_ID + " = ? THEN bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_PAID + " ELSE 0 END), 0) AS totalPaid, " +
-                "COALESCE(SUM(CASE WHEN t." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? AND t." + DatabaseHelper.KEY_GROUP_ID + " = g.id THEN t." + DatabaseHelper.KEY_TRANSACTION_AMOUNT + " ELSE 0 END), 0) AS userTransactionAmount " +
+                "COUNT(DISTINCT bp_sub." + DatabaseHelper.KEY_USER_ID + ") AS userCount, " +
+                "COALESCE(bp_sub.totalOwed, 0) AS totalOwed, " +
+                "COALESCE(bp_sub_paid.totalPaid, 0) AS totalPaid, " +
+                "COALESCE(t_sub.userTransactionAmount, 0) AS userTransactionAmount " +
                 "FROM " + DatabaseHelper.TABLE_GROUPS + " g " +
                 "LEFT JOIN " + DatabaseHelper.TABLE_BILLS + " b ON g.id = b." + DatabaseHelper.KEY_BILL_GROUP_ID + " " +
-                "LEFT JOIN " + DatabaseHelper.TABLE_BILL_PARTICIPANTS + " bp ON b.id = bp." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " " +
-                "LEFT JOIN " + DatabaseHelper.TABLE_TRANSACTIONS + " t ON g.id = t." + DatabaseHelper.KEY_GROUP_ID + " " +
+                "LEFT JOIN " + subqueryOwed + " ON b.id = bp_sub." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " AND bp_sub." + DatabaseHelper.KEY_USER_ID + " = ? " +
+                "LEFT JOIN " + subqueryPaid + " ON b.id = bp_sub_paid." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " AND bp_sub_paid." + DatabaseHelper.KEY_USER_ID + " = ? " +
+                "LEFT JOIN " + subquery + " ON g.id = t_sub." + DatabaseHelper.KEY_GROUP_ID + " AND t_sub." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? " +
                 "GROUP BY g.id";
 
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(userId), String.valueOf(userId)});
