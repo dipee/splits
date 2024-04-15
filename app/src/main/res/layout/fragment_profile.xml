@@ -35,7 +35,8 @@
             android:ems="10"
             android:inputType="text"
             android:text="Name"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
         <EditText
             android:id="@+id/email"
@@ -45,9 +46,8 @@
             android:ems="10"
             android:inputType="text"
             android:text="Email"
-            android:textColor="@color/black" />
-
-
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
         <Button
             android:id="@+id/updateUserButton"

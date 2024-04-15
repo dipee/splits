@@ -76,8 +76,15 @@ public class DbQueries {
                 "FROM " + DatabaseHelper.TABLE_BILL_PARTICIPANTS +
                 " GROUP BY " + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + ", " + DatabaseHelper.KEY_USER_ID + ") AS bp_sub_paid";
 
+        // Subquery to calculate userCount for each group
+        String subqueryUserCount = "(SELECT " +
+                DatabaseHelper.KEY_GROUP_ID + ", " +
+                "COUNT(DISTINCT " + DatabaseHelper.KEY_USER_ID + ") AS userCount " +
+                "FROM " + DatabaseHelper.TABLE_GROUP_MEMBERS +
+                " GROUP BY " + DatabaseHelper.KEY_GROUP_ID + ") AS ug_sub";
+
 // Main query
-        String query = "SELECT " +
+        String query1 = "SELECT " +
                 "g.id AS groupId, " +
                 "g.name AS groupName, " +
                 "COUNT(DISTINCT bp_sub." + DatabaseHelper.KEY_USER_ID + ") AS userCount, " +
@@ -91,7 +98,24 @@ public class DbQueries {
                 "LEFT JOIN " + subquery + " ON g.id = t_sub." + DatabaseHelper.KEY_GROUP_ID + " AND t_sub." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? " +
                 "GROUP BY g.id";
 
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(userId), String.valueOf(userId)});
+        // Main query
+        String query = "SELECT " +
+                "g.id AS groupId, " +
+                "g.name AS groupName, " +
+                "COALESCE(ug_sub.userCount, 0) AS userCount, " +
+                "COALESCE(bp_sub.totalOwed, 0) AS totalOwed, " +
+                "COALESCE(bp_sub_paid.totalPaid, 0) AS totalPaid, " +
+                "COALESCE(t_sub.userTransactionAmount, 0) AS userTransactionAmount " +
+                "FROM " + DatabaseHelper.TABLE_GROUPS + " g " +
+                "LEFT JOIN " + subqueryUserCount + " ON g.id = ug_sub." + DatabaseHelper.KEY_GROUP_ID + " " +
+                "LEFT JOIN " + DatabaseHelper.TABLE_BILLS + " b ON g.id = b." + DatabaseHelper.KEY_BILL_GROUP_ID + " " +
+                "LEFT JOIN " + subqueryOwed + " ON b.id = bp_sub." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " AND bp_sub." + DatabaseHelper.KEY_USER_ID + " = ? " +
+                "LEFT JOIN " + subqueryPaid + " ON b.id = bp_sub_paid." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " AND bp_sub_paid." + DatabaseHelper.KEY_USER_ID + " = ? " +
+                "LEFT JOIN " + subquery + " ON g.id = t_sub." + DatabaseHelper.KEY_GROUP_ID + " AND t_sub." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? " +
+                "WHERE EXISTS (SELECT 1 FROM " + DatabaseHelper.TABLE_GROUP_MEMBERS + " WHERE " + DatabaseHelper.KEY_GROUP_ID + " = g.id AND " + DatabaseHelper.KEY_USER_ID + " = ?) " +
+                "GROUP BY g.id";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(userId), String.valueOf(userId), String.valueOf(userId)});
 
         // Loop through the cursor and add user balances to the list
         if (cursor != null && cursor.moveToFirst()) {
