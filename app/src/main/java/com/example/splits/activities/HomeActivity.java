@@ -104,4 +104,8 @@ public class HomeActivity extends AppCompatActivity {
     public int getUserId() {
         return userId;
     }
+
+    public String getUserName() {
+        return userName;
+    }
 }

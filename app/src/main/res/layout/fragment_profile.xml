@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/AccountDetailText"
+            android:id="@+id/accountDetailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Account Details"
@@ -36,28 +36,22 @@
             android:text="Name" />
 
         <EditText
-            android:id="@+id/Email"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Email" />
+            android:text="Email"
+            />
 
-        <EditText
-            android:id="@+id/Password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Password" />
+
 
         <Button
             android:id="@+id/updateUserButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:text="Update Details" />
+            android:text="Update/logout" />
     </LinearLayout>
 </FrameLayout>
