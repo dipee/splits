@@ -100,4 +100,15 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
+    public Boolean updateUser(User user) {
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", user.getName());
+        contentValues.put("email", user.getEmail());
+
+        int result = db.update("User", contentValues, "id=?", new String[]{String.valueOf(user.getId())});
+        return result > 0;
+    }
+
 }

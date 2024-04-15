@@ -11,4 +11,6 @@ public interface UserDao {
     User loginUser(String email, String password);
 
     List<User> getAllUsers();
+
+    Boolean updateUser(User user);
 }

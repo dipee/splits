@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -101,18 +102,28 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
                     .commit();
         }
         if(v.getId() == binding.buttonAddSettlement.getId()){
-            // Navigate to SettlementListFragment
-            AddSettlementFragment fragment = new AddSettlementFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("groupId", group.getId());
-            bundle.putDouble("totalOwed", groupDetail.getTotalOwed());
-            bundle.putDouble("totalPaid", groupDetail.getTotalPaid());
-            fragment.setArguments(bundle);
+            double totalPaid = groupDetail.getTotalPaid() + groupDetail.getUserTransactionAmount();
+            double totalOwed = groupDetail.getTotalOwed();
+            if(totalPaid >= totalOwed) {
+                //show dialog that no settlement is required
+                Toast.makeText(getContext(), "No settlement required", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                // Navigate to SettlementListFragment
+                AddSettlementFragment fragment = new AddSettlementFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("groupId", groupDetail.getGroupId());
+                bundle.putDouble("totalOwed", groupDetail.getTotalOwed());
+                bundle.putDouble("totalPaid", groupDetail.getTotalPaid());
+                bundle.putString("groupName", group.getName());
 
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+                fragment.setArguments(bundle);
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
 
     }

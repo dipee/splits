@@ -27,6 +27,8 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
     GroupService groupService;
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

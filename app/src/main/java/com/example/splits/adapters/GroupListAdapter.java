@@ -79,7 +79,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
         public void bind(GroupDetail group) {
             nameTextView.setText(group.getGroupName());
             userCountTextView.setText(group.getUserCount() + " members");
-            paidAmountTextView.setText("Total Paid: " + String.format("%.2f",group.getTotalPaid()));
+            paidAmountTextView.setText("Total Paid: " + String.format("%.2f",group.getTotalPaid() + group.getUserTransactionAmount()));
             owedAmountTextView.setText("Total Owed: " + String.format("%.2f",group.getTotalOwed()));
 
         }

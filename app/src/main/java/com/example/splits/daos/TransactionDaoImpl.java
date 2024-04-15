@@ -5,12 +5,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.splits.models.SettlementUser;
 import com.example.splits.models.Transaction;
 import com.example.splits.utilities.DatabaseHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransactionDaoImpl implements TransactionDao{
 
@@ -26,12 +22,12 @@ public class TransactionDaoImpl implements TransactionDao{
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("payerId", transaction.getPayerId());
-        values.put("payeeId", transaction.getPayeeId());
         values.put("remark", transaction.getRemark());
         values.put("amount", transaction.getAmount());
         values.put("date", transaction.getDate());
+        values.put("groupId", transaction.getGroupId());
         long newRowId = db.insert("transactions", null, values);
-        transaction.setId(newRowId);
+        transaction.setId((int)newRowId);
         return transaction;
 
     }
@@ -43,7 +39,7 @@ public class TransactionDaoImpl implements TransactionDao{
         Cursor cursor = db.query("transactions", null, "id = ?", new String[]{String.valueOf(transactionId)}, null, null, null);
         cursor.moveToFirst();
         Transaction transaction = new Transaction();
-        transaction.setId(cursor.getLong(cursor.getColumnIndex("id")));
+        transaction.setId(cursor.getInt(cursor.getColumnIndex("id")));
         transaction.setPayerId(cursor.getLong(cursor.getColumnIndex("payerId")));
         transaction.setPayeeId(cursor.getLong(cursor.getColumnIndex("payeeId")));
         transaction.setRemark(cursor.getString(cursor.getColumnIndex("remark")));

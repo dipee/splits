@@ -45,6 +45,10 @@ public class UserService {
         return true;
     }
 
+    public boolean updateUser(User user) {
+        return userDao.updateUser(user);
+    }
+
     public User checkIfLoggedIn() {
         return loginInfoDao.checkIfLoggedIn();
     }
