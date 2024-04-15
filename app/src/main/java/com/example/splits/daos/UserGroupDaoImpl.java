@@ -1,5 +1,6 @@
 package com.example.splits.daos;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,25 +37,28 @@ public class UserGroupDaoImpl implements UserGroupDao{
 
     }
 
+    @SuppressLint("Range")
     @Override
     public List<User> getGroupMembers(int groupId) {
+        List<User> users = new ArrayList<>();
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(
-                "SELECT * FROM User WHERE id IN (SELECT user_id FROM GroupMember WHERE group_id = ?)", new String[]{String.valueOf(groupId)}
-        );
-        if(cursor != null && cursor.moveToFirst()) {
-            List<User> users = new ArrayList<>();
+
+        String query = "SELECT User.id, User.name, User.email FROM User INNER JOIN UserGroup ON User.id = UserGroup.userId WHERE UserGroup.groupId = ?";
+
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(groupId)});
+
+        if (cursor.moveToFirst()) {
             do {
                 User user = new User();
-                user.setId(cursor.getInt(0));
-                user.setName(cursor.getString(1));
-                user.setEmail(cursor.getString(2));
-                user.setPassword(cursor.getString(3));
+                user.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                user.setName(cursor.getString(cursor.getColumnIndex("name")));
+                user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
                 users.add(user);
             } while (cursor.moveToNext());
-            cursor.close();
-            return users;
         }
-        return null;
+
+        cursor.close();
+        return users;
     }
 }

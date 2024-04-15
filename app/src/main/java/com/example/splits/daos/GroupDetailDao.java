@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface GroupDetailDao {
 
-    List<GroupDetail> getGroupDetails();
+    List<GroupDetail> getGroupDetails(int userId);
 }

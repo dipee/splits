@@ -32,7 +32,7 @@ public class GroupService {
         return groupDao.getAllGroups();
     }
 
-    public List<GroupDetail> getGroupDetails() {
-        return groupDetailDao.getGroupDetails();
+    public List<GroupDetail> getGroupDetails(int userId) {
+        return groupDetailDao.getGroupDetails(userId);
     }
 }

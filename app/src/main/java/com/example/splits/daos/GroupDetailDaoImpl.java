@@ -13,8 +13,8 @@ public class GroupDetailDaoImpl implements GroupDetailDao{
         this.databaseHelper = databaseHelper;
     }
     @Override
-    public List<GroupDetail> getGroupDetails() {
+    public List<GroupDetail> getGroupDetails(int userId) {
         DbQueries dbQueries = new DbQueries(databaseHelper);
-       return dbQueries.getGroupDetails();
+       return dbQueries.getGroupDetail(userId);
     }
 }

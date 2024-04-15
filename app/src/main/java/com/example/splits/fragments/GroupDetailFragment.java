@@ -16,6 +16,7 @@ import com.example.splits.models.Group;
 import com.example.splits.models.GroupDetail;
 import com.example.splits.services.BillService;
 import com.example.splits.services.GroupService;
+import com.example.splits.services.ParticipantService;
 import com.example.splits.utilities.DatabaseHelper;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
     FragmentGroupDetailBinding binding;
     DatabaseHelper databaseHelper;
     BillService billService;
+
+    ParticipantService participantService;
 
     BillAdapter billAdapter;
 
@@ -40,11 +43,13 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         binding = FragmentGroupDetailBinding.inflate(inflater, container, false);
         binding.floatingActionButton.setOnClickListener(this);
+        binding.buttonAddSettlement.setOnClickListener(this);
 
         //initialize database helper and service
         databaseHelper = new DatabaseHelper(getContext());
         billService = new BillService(databaseHelper);
         groupService = new GroupService(databaseHelper);
+        participantService = new ParticipantService(databaseHelper);
         //get group data from previous bundle serializable fragment
         GroupDetail groupDetail = (GroupDetail) getArguments().getSerializable("group");
         group = groupService.getGroup(groupDetail.getGroupId());
@@ -53,13 +58,22 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
         binding.textViewTitle.setText(group.getName());
         binding.textViewDescription.setText(group.getDescription());
         binding.textViewUserCount.setText("Users: " + groupDetail.getUserCount());
-        binding.textViewOwed.setText("Owed: " + groupDetail.getTotalOwed());
-        binding.textViewPaid.setText("Spent: " + groupDetail.getTotalPaid());
+        binding.textViewOwed.setText("Owed: " + String.format("%.2f",groupDetail.getTotalOwed()));
+        binding.textViewPaid.setText("Spent: " + String.format("%.2f",groupDetail.getTotalPaid()));
 
 
 //        setting adapter
 
         List<Bill> bills = billService.getBillsOfGroup(group.getId());
+
+        //print participants of each bill
+        for (Bill bill : bills) {
+            System.out.println("Bill: " + bill.getTitle());
+            participantService.getParticipantsOfBill(bill.getId()).forEach(participant -> {
+                System.out.println("Participant: " + participant.getUserId() + " " + participant.getPortionOwed() + " " + participant.getPortionPaid());
+            });
+
+        }
 
         billAdapter = new BillAdapter(bills);
 
@@ -78,6 +92,18 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
             AddBillFragment fragment = new AddBillFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable("group", group);
+            fragment.setArguments(bundle);
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        if(v.getId() == binding.buttonAddSettlement.getId()){
+            // Navigate to SettlementListFragment
+            SettlementListFragment fragment = new SettlementListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("groupId", group.getId());
             fragment.setArguments(bundle);
 
             getActivity().getSupportFragmentManager().beginTransaction()

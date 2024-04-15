@@ -10,13 +10,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.splits.activities.HomeActivity;
 import com.example.splits.databinding.FragmentAddBillBinding;
+import com.example.splits.models.Bill;
 import com.example.splits.models.Group;
+import com.example.splits.models.User;
 import com.example.splits.services.BillService;
+import com.example.splits.services.ParticipantService;
+import com.example.splits.services.UserGroupService;
 import com.example.splits.utilities.DatabaseHelper;
 
-import com.example.splits.models.Bill;
-
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class AddBillFragment extends Fragment implements View.OnClickListener {
@@ -25,6 +28,10 @@ public class AddBillFragment extends Fragment implements View.OnClickListener {
     DatabaseHelper databaseHelper;
 
     BillService billService;
+
+    UserGroupService userGroupService;
+
+    ParticipantService participantService;
 
 
     @Override
@@ -35,7 +42,10 @@ public class AddBillFragment extends Fragment implements View.OnClickListener {
         //initialize database helper and service
         databaseHelper = new DatabaseHelper(getContext());
         billService = new BillService(databaseHelper);
+        userGroupService = new UserGroupService(databaseHelper);
+        participantService = new ParticipantService(databaseHelper);
         binding.buttonSubmit.setOnClickListener(this);
+
 
 
         return binding.getRoot();
@@ -70,6 +80,20 @@ public class AddBillFragment extends Fragment implements View.OnClickListener {
 
             // Add bill to database
             billService.addBill(bill);
+
+            addParticipants(bill, userId, groupId);
         }
+    }
+
+    void addParticipants(Bill bill, int payerUserId, int groupId){
+// Add participants to database
+        // Get the list of participants
+        // Get the list of participants
+        List<User> participants = userGroupService.getGroupMembers(groupId);
+        // Calculate the portion owed by each participant
+        double totalAmount =(double) bill.getAmount();
+        participantService.addParticipants(participants, totalAmount, payerUserId, bill.getId());
+
+
     }
 }

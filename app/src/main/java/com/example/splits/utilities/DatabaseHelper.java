@@ -117,7 +117,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_TRANSACTION_PAYEE_ID + " INTEGER,"
             + KEY_TRANSACTION_REMARK + " TEXT,"
             + KEY_TRANSACTION_AMOUNT + " REAL,"
-            + KEY_TRANSACTION_DATE + " DATETIME"
+            + KEY_TRANSACTION_DATE + " DATETIME,"
+            + KEY_GROUP_ID + " INTEGER"
             + ")";
 
 

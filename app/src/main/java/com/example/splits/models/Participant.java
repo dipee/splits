@@ -1,9 +1,9 @@
 package com.example.splits.models;
 
 public class Participant {
-    private long id;
-    private long billId;
-    private long userId;
+    private int id;
+    private int billId;
+    private int userId;
     private double portionPaid;
     private double portionOwed;
 
@@ -12,21 +12,21 @@ public class Participant {
     public long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
     // Bill ID
     public long getBillId() {
         return billId;
     }
-    public void setBillId(long billId) {
+    public void setBillId(int billId) {
         this.billId = billId;
     }
     // User ID
     public long getUserId() {
         return userId;
     }
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
     // Portion Paid

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.splits.R;
+import com.example.splits.activities.HomeActivity;
 import com.example.splits.adapters.GroupListAdapter;
 import com.example.splits.databinding.FragmentGroupBinding;
 import com.example.splits.models.GroupDetail;
@@ -43,7 +44,10 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
 
         // Setup RecyclerView
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupListAdapter(groupService.getGroupDetails(), new GroupListAdapter.OnGroupClickListener() {
+
+        // get user id from activity
+        int userId = ((HomeActivity) getActivity()).getUserId();
+        adapter = new GroupListAdapter(groupService.getGroupDetails(userId), new GroupListAdapter.OnGroupClickListener() {
             @Override
             public void onGroupClick(GroupDetail group) {
                 Log.d("GroupFragment", "Group clicked: " + group.getGroupName());

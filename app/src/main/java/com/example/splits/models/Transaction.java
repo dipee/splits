@@ -8,7 +8,7 @@ public class Transaction {
     private long payeeId;
     private String remark;
     private double amount;
-    private Date date;
+    private String date;
 
     // Getters and setters
     // ID
@@ -47,10 +47,10 @@ public class Transaction {
         this.amount = amount;
     }
     // Date
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }
