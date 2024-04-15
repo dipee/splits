@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Account Details"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="34sp" />
 
         <EditText
@@ -33,7 +34,8 @@
             android:layout_marginTop="35dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Name" />
+            android:text="Name"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/email"
@@ -43,7 +45,7 @@
             android:ems="10"
             android:inputType="text"
             android:text="Email"
-            />
+            android:textColor="@color/black" />
 
 
 
