@@ -3,7 +3,6 @@ package com.example.splits.daos;
 
 import com.example.splits.models.GroupDetail;
 import com.example.splits.utilities.DatabaseHelper;
-import com.example.splits.utilities.DbQueries;
 
 import java.util.List;
 

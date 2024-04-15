@@ -84,10 +84,16 @@ public class AddGroupFragment extends Fragment implements View.OnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 group.setCreationDate(LocalDate.now().toString());
             }
+            List<User> selectedUsers = userAdapter.getSelectedUsers();
+
+            if(validateGroupFields(groupName, groupDescription, selectedUsers)){
+                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Group createdGroup = groupService.addGroup(group);
 
             // add users to group
-            List<User> selectedUsers = userAdapter.getSelectedUsers();
+
             for (User user : selectedUsers) {
                 userGroupService.addUserToGroup(user.getId(), createdGroup.getId());
             }
@@ -101,5 +107,9 @@ public class AddGroupFragment extends Fragment implements View.OnClickListener {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, groupFragment).commit();
         }
 
+    }
+
+    Boolean validateGroupFields(String groupName, String groupDescription, List<User> userList){
+        return groupName.isEmpty() || groupDescription.isEmpty() || userList.isEmpty();
     }
 }

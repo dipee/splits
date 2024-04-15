@@ -45,7 +45,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //    get credential from the form
         email = activityLoginBinding.emailField.getText().toString();
         password = activityLoginBinding.passwordField.getText().toString();
+
         if(view.getId() == activityLoginBinding.loginButton.getId()){
+            if (!validateLoginFields(email, password)) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
             User user = userService.loginUser(email, password);
             if(user != null){
                 Intent intent = new Intent(this, HomeActivity.class);
@@ -66,5 +71,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
             finish();
         }
+    }
+
+    Boolean validateLoginFields(String email, String password){
+        return !email.isEmpty() && !password.isEmpty();
     }
 }

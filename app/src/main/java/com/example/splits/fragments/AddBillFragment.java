@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -58,7 +59,14 @@ public class AddBillFragment extends Fragment implements View.OnClickListener {
             // Get data from the form
             String title = binding.editTitleText.getText().toString();
             String description = binding.editDescriptionText.getText().toString();
-            double amount = Double.parseDouble(binding.editAmountText.getText().toString());
+            String textAmount = binding.editAmountText.getText().toString();
+
+
+            if(validateBillFields(title, description, textAmount)){
+                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            double amount = Double.parseDouble(textAmount);
 
             //get group id and user id from previous  fragment
             Group group = (Group) getArguments().getSerializable("group");
@@ -89,6 +97,10 @@ public class AddBillFragment extends Fragment implements View.OnClickListener {
 
             getActivity().getSupportFragmentManager().beginTransaction().replace(com.example.splits.R.id.fragment_container, fragment).addToBackStack(null).commit();
         }
+    }
+
+    Boolean validateBillFields(String title, String description, String amount){
+        return title.isEmpty() || description.isEmpty() || amount.isEmpty();
     }
 
     void addParticipants(Bill bill, int payerUserId, int groupId){

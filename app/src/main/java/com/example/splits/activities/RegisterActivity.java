@@ -41,6 +41,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String email = activityRegisterBinding.emailField.getText().toString();
             String password = activityRegisterBinding.passwordField.getText().toString();
             String confirmPassword = activityRegisterBinding.confirmPasswordField.getText().toString();
+            if(validateRegisterFields(name, email, password, confirmPassword)){
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(password.equals(confirmPassword)){
                 User user = new User();
                 user.setName(name);
@@ -69,5 +73,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             startActivity(intent);
             finish();
         }
+    }
+
+    Boolean validateRegisterFields(String name, String email, String password, String confirmPassword){
+        return name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
     }
 }

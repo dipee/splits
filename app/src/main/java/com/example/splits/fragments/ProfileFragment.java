@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -56,6 +57,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             //get data from form
             String newName = binding.username.getText().toString();
             String newEmail = binding.email.getText().toString();
+
+            if(validateProfileFields(newName, newEmail)){
+                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
             User user = new User();
             user.setName(newName);
             user.setEmail(newEmail);
@@ -72,5 +78,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+   Boolean validateProfileFields(String name, String email){
+        if(name.isEmpty() || email.isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

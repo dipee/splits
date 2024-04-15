@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -48,7 +49,7 @@ public class AddSettlementFragment extends Fragment implements View.OnClickListe
         //get user id from home activity
         userId = ((HomeActivity) getActivity()).getUserId();
 
-        binding.textViewOwedAmount.setText(String.valueOf(amount));
+        binding.textViewOwedAmount.setText(String.valueOf(amount).format("%.2f", amount));
         binding.textViewGroupName.setText(String.valueOf(groupName));
 
         return binding.getRoot();
@@ -59,8 +60,15 @@ public class AddSettlementFragment extends Fragment implements View.OnClickListe
         if(v.getId() == binding.buttonSave.getId()){
             //save settlement to database
             //get data from form
-            double amount = Double.parseDouble(binding.editTextAmount.getText().toString());
+            String amountText = binding.editTextAmount.getText().toString();
+
             String remark = binding.editTextRemarks.getText().toString();
+            //validate fields
+            if(validateSettlementFields(amountText, remark)){
+                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            double amount = Double.parseDouble(amountText);
             //create settlement object
             Transaction transaction = new Transaction();
             transaction.setPayerId(userId);
@@ -78,5 +86,9 @@ public class AddSettlementFragment extends Fragment implements View.OnClickListe
 
 
         }
+    }
+
+    Boolean validateSettlementFields(String amount, String remark){
+        return amount.isEmpty() || remark.isEmpty();
     }
 }
