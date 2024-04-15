@@ -35,6 +35,7 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
     GroupService groupService;
 
     Group group;
+    GroupDetail groupDetail;
 
 
 
@@ -51,7 +52,7 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
         groupService = new GroupService(databaseHelper);
         participantService = new ParticipantService(databaseHelper);
         //get group data from previous bundle serializable fragment
-        GroupDetail groupDetail = (GroupDetail) getArguments().getSerializable("group");
+        groupDetail = (GroupDetail) getArguments().getSerializable("group");
         group = groupService.getGroup(groupDetail.getGroupId());
 
         //set group info
@@ -101,9 +102,11 @@ public class GroupDetailFragment extends Fragment implements View.OnClickListene
         }
         if(v.getId() == binding.buttonAddSettlement.getId()){
             // Navigate to SettlementListFragment
-            SettlementListFragment fragment = new SettlementListFragment();
+            AddSettlementFragment fragment = new AddSettlementFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("groupId", group.getId());
+            bundle.putDouble("totalOwed", groupDetail.getTotalOwed());
+            bundle.putDouble("totalPaid", groupDetail.getTotalPaid());
             fragment.setArguments(bundle);
 
             getActivity().getSupportFragmentManager().beginTransaction()

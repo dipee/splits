@@ -59,43 +59,5 @@ public class DbQueries {
         return groupDetails;
     }
 
-    @SuppressLint("Range")
-    public List<SettlementUser> getSettlementUsers(int userId, int groupId) {
-        List<SettlementUser> settlementUsers = new ArrayList<>();
 
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
-
-        // Query to retrieve users to whom the supplied userId owes money in a specific group
-        String query = "SELECT " +
-                "u." + DatabaseHelper.KEY_ID + " AS userId, " +
-                "u." + DatabaseHelper.KEY_NAME + " AS userName, " +
-                "COALESCE(SUM(CASE WHEN bp." + DatabaseHelper.KEY_USER_ID + " = ? AND bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_OWED + " > bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_PAID + " - COALESCE(SUM(CASE WHEN t." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? THEN t." + DatabaseHelper.KEY_TRANSACTION_AMOUNT + " ELSE 0 END), 0) THEN bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_OWED + " - bp." + DatabaseHelper.KEY_PARTICIPANT_PORTION_PAID + " + COALESCE(SUM(CASE WHEN t." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? THEN t." + DatabaseHelper.KEY_TRANSACTION_AMOUNT + " ELSE 0 END), 0) ELSE 0 END), 0) AS amountOwed " +
-                "FROM " + DatabaseHelper.TABLE_USERS + " u " +
-                "LEFT JOIN " + DatabaseHelper.TABLE_BILL_PARTICIPANTS + " bp ON u." + DatabaseHelper.KEY_ID + " = bp." + DatabaseHelper.KEY_USER_ID + " " +
-                "LEFT JOIN " + DatabaseHelper.TABLE_BILLS + " b ON bp." + DatabaseHelper.KEY_PARTICIPANT_BILL_ID + " = b." + DatabaseHelper.KEY_ID + " " +
-                "LEFT JOIN " + DatabaseHelper.TABLE_TRANSACTIONS + " t ON b." + DatabaseHelper.KEY_ID + " = t." + DatabaseHelper.KEY_BILL_GROUP_ID + " AND t." + DatabaseHelper.KEY_TRANSACTION_PAYER_ID + " = ? " +
-                "WHERE b." + DatabaseHelper.KEY_BILL_GROUP_ID + " = ? " +
-                "GROUP BY u." + DatabaseHelper.KEY_ID + " " +
-                "HAVING amountOwed > 0";
-
-
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(userId), String.valueOf(userId), String.valueOf(groupId)});
-
-        // Loop through the cursor and add users to the list
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                SettlementUser user = new SettlementUser();
-                user.setUserId(cursor.getInt(cursor.getColumnIndex("userId")));
-                user.setUserName(cursor.getString(cursor.getColumnIndex("userName")));
-                user.setAmountOwed(cursor.getDouble(cursor.getColumnIndex("amountOwed")));
-                settlementUsers.add(user);
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-
-        // Close database connection
-        db.close();
-
-        return settlementUsers;
-    }
 }

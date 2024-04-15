@@ -27,7 +27,5 @@ public class SettlementService {
     }
 
 
-    public List<SettlementUser> getUserSettlements(int userId, int groupId) {
-        return dbQueries.getSettlementUsers(userId, groupId);
-    }
+
 }
