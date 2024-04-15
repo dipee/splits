@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         userId = getIntent().getIntExtra("userId", 0);
 
         TextView titleText = binding.navView.getHeaderView(0).findViewById(R.id.header_text_view);
-        titleText.setText(String.format("Hi!, %s", userName));
+        titleText.setText(String.format("Hii, %s", userName));
 
         loadFragment(new GroupFragment());
     }
