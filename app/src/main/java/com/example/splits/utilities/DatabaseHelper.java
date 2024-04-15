@@ -1,7 +1,14 @@
 package com.example.splits.utilities;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.splits.models.GroupDetail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -161,5 +168,82 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // create new tables
         onCreate(db);
+    }
+
+    @SuppressLint("Range")
+    public List<GroupDetail> getGroupDetail(int userId) {
+        List<GroupDetail> groupDetails = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query1 = "SELECT " +
+                "g.*, " +
+                "(SELECT COALESCE(SUM(bp.portionPaid), 0) " +
+                "FROM " + TABLE_BILL_PARTICIPANTS + " bp " +
+                "JOIN " + TABLE_BILLS + " b ON bp." + KEY_PARTICIPANT_BILL_ID + " = b." + KEY_ID + " " +
+                "WHERE b." + KEY_BILL_GROUP_ID + " = g." + KEY_ID + " " +
+                "AND bp." + KEY_USER_ID + " = ?) AS total_amount_paid, " +
+                "(SELECT COALESCE(SUM(t." + KEY_TRANSACTION_AMOUNT + "), 0) " +
+                "FROM " + TABLE_TRANSACTIONS + " t " +
+                "WHERE t." + KEY_GROUP_ID + " = g." + KEY_ID + " " +
+                "AND t." + KEY_TRANSACTION_PAYER_ID + " = ?) AS total_transaction_amount_paid, " +
+                "(SELECT COALESCE(SUM(bp." + KEY_PARTICIPANT_PORTION_OWED + "), 0) " +
+                "FROM " + TABLE_BILL_PARTICIPANTS + " bp " +
+                "JOIN " + TABLE_BILLS + " b ON bp." + KEY_PARTICIPANT_BILL_ID + " = b." + KEY_ID + " " +
+                "WHERE b." + KEY_BILL_GROUP_ID + " = g." + KEY_ID + " " +
+                "AND bp." + KEY_USER_ID + " = ?) AS total_owed_amount, " +
+                "(SELECT COUNT(DISTINCT ug." + KEY_USER_ID + ") " +
+                "FROM " + TABLE_GROUP_MEMBERS + " ug " +
+                "WHERE ug." + KEY_GROUP_ID + " = g." + KEY_ID + ") AS total_user_count " +
+                "FROM " + TABLE_GROUPS + " g " +
+                "JOIN " + TABLE_GROUP_MEMBERS + " ug ON g." + KEY_ID + " = ug." + KEY_GROUP_ID + " " +
+                "WHERE ug." + KEY_USER_ID + " = ?";
+
+
+        String query = "SELECT " +
+                "g." + KEY_ID + " AS groupId, " +
+                "g." + KEY_GROUP_NAME + " AS groupName, " +
+                "(SELECT COUNT(DISTINCT ug." + KEY_USER_ID + ") " +
+                "FROM " + TABLE_GROUP_MEMBERS + " ug " +
+                "WHERE ug." + KEY_GROUP_ID + " = g." + KEY_ID + ") AS userCount, " +
+                "(SELECT COALESCE(SUM(bp." + KEY_PARTICIPANT_PORTION_OWED + "), 0) " +
+                "FROM " + TABLE_BILL_PARTICIPANTS + " bp " +
+                "JOIN " + TABLE_BILLS + " b ON bp." + KEY_PARTICIPANT_BILL_ID + " = b." + KEY_ID + " " +
+                "WHERE b." + KEY_BILL_GROUP_ID + " = g." + KEY_ID + " " +
+                "AND bp." + KEY_USER_ID + " = ?) AS totalOwed, " +
+                "(SELECT COALESCE(SUM(bp." + KEY_PARTICIPANT_PORTION_PAID + "), 0) " +
+                "FROM " + TABLE_BILL_PARTICIPANTS + " bp " +
+                "JOIN " + TABLE_BILLS + " b ON bp." + KEY_PARTICIPANT_BILL_ID + " = b." + KEY_ID + " " +
+                "WHERE b." + KEY_BILL_GROUP_ID + " = g." + KEY_ID + " " +
+                "AND bp." + KEY_USER_ID + " = ?) AS totalPaid, " +
+                "(SELECT COALESCE(SUM(t." + KEY_TRANSACTION_AMOUNT + "), 0) " +
+                "FROM " + TABLE_TRANSACTIONS + " t " +
+                "WHERE t." + KEY_GROUP_ID + " = g." + KEY_ID + " " +
+                "AND t." + KEY_TRANSACTION_PAYER_ID + " = ?) AS userTransactionAmount " +
+                "FROM " + TABLE_GROUPS + " g " +
+                "JOIN " + TABLE_GROUP_MEMBERS + " ug ON g." + KEY_ID + " = ug." + KEY_GROUP_ID + " " +
+                "WHERE ug." + KEY_USER_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(userId), String.valueOf(userId), String.valueOf(userId)});
+
+        // Loop through the cursor and add user balances to the list
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                GroupDetail groupDetail = new GroupDetail();
+                groupDetail.setGroupId(cursor.getInt(cursor.getColumnIndex("groupId")));
+                groupDetail.setGroupName(cursor.getString(cursor.getColumnIndex("groupName")));
+                groupDetail.setUserCount(cursor.getInt(cursor.getColumnIndex("userCount")));
+                groupDetail.setTotalOwed(cursor.getDouble(cursor.getColumnIndex("totalOwed")));
+                groupDetail.setTotalPaid(cursor.getDouble(cursor.getColumnIndex("totalPaid")));
+                groupDetail.setUserTransactionAmount(cursor.getDouble(cursor.getColumnIndex("userTransactionAmount")));
+                groupDetails.add(groupDetail);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        // Close the database connection
+        db.close();
+
+        // Return the list of groups
+        return groupDetails;
     }
 }

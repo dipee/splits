@@ -14,7 +14,7 @@ public class GroupDetailDaoImpl implements GroupDetailDao{
     }
     @Override
     public List<GroupDetail> getGroupDetails(int userId) {
-        DbQueries dbQueries = new DbQueries(databaseHelper);
-       return dbQueries.getGroupDetail(userId);
+//        DbQueries dbQueries = new DbQueries(databaseHelper);
+       return databaseHelper.getGroupDetail(userId);
     }
 }

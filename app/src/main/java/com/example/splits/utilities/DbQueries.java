@@ -19,7 +19,7 @@ public class DbQueries {
 
 
     @SuppressLint("Range")
-    public List<GroupDetail> getGroupDetail(int userId) {
+    public List<GroupDetail> getGroupDetails(int userId) {
         List<GroupDetail> groupDetails = new ArrayList<>();
 
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
@@ -137,6 +137,8 @@ public class DbQueries {
 
         return groupDetails;
     }
+
+
 
     @SuppressLint("Range")
     public List<Transaction> getallTransactionsofuser(int userId){
