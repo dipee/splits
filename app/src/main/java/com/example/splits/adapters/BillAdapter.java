@@ -32,9 +32,9 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewHolder
     @Override
     public void onBindViewHolder(@NonNull BillAdapter.BillViewHolder holder, int position) {
         Bill bill = billList.get(position);
-        holder.billNameTextView.setText(bill.getTitle());
+        holder.billNameTextView.setText("Title: "+bill.getTitle());
         holder.billAmountTextView.setText(String.valueOf(bill.getAmount()));
-        holder.billDescriptionTextView.setText(bill.getDescription());
+        holder.billDescriptionTextView.setText("Des: "+bill.getDescription());
         holder.billDateTextView.setText(bill.getDate());
 
 
@@ -61,7 +61,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillViewHolder
 
         public BillViewHolder(@NonNull View itemView) {
             super(itemView);
-            billNameTextView = itemView.findViewById(R.id.textViewBillTitle);
+            billNameTextView =  itemView.findViewById(R.id.textViewBillTitle);
             billAmountTextView = itemView.findViewById(R.id.textViewBillAmount);
             billDescriptionTextView = itemView.findViewById(R.id.textViewBillDescription);
             billDateTextView = itemView.findViewById(R.id.textViewBillDate);
