@@ -10,11 +10,11 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/drawer_nav_groups"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:textSize="18sp"
-        android:textColor="@android:color/black" />
+        android:layout_marginTop="16dp"
+        android:text="@string/drawer_nav_groups"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
